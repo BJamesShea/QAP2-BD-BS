@@ -53,9 +53,9 @@ INSERT INTO courses (course_name, course_description, professor_id) VALUES
 
 
 INSERT INTO enrollments (student_id, course_id, enrollment_date) VALUES
-(1,1, '2024-07-20'), -- Nell
-(2,2, '2024-07-20'), -- Dani
-(3,3, '2024-07-20'), -- Paul
-(4,1, '2024-07-20'), -- Robert
-(5,2, '2024-07-20'); -- Barney
+(1,1, '2024-07-11'), -- Nell
+(2,2, '2024-07-10'), -- Dani
+(3,3, '2024-07-09'), -- Paul
+(4,1, '2024-07-12'), -- Robert
+(5,2, '2024-07-10'); -- Barney
 
