@@ -30,7 +30,7 @@ CREATE TABLE enrollments(
     FOREIGN KEY (course_id) REFERENCES courses(id)
 );
 
-INSERT INTO students (first_name, last_name, email, enrollment_date) VALUES
+INSERT INTO students (first_name, last_name, email, school_enrollment_date) VALUES
 ('Nell', 'Crain', 'nellcrain@thohh.com', '1999-01-02'), --Haunting of Hill House the greatest TV show ever made
 ('Dani', 'Clayton', 'daniclayton@thobm.com', '1928-11-4'), --Haunting of Bly Manor the second greatest TV show ever made
 ('Paul', 'Hill', 'paulhill@midnightmass.com', '1991-02-17'), --Midnight Mass the third greatest TV show ever made
@@ -42,3 +42,5 @@ INSERT INTO professors (first_name, last_name, department) VALUES
 ('Justin', 'Trudeau', 'Hockey class'),
 ('Albert', 'Einstein', 'Basic Math'),
 ('John', 'Mayer', 'Advanced Music');
+
+INSERT INTO enrollments (student_id, course_id,enrollment_date)
