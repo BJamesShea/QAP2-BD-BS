@@ -60,11 +60,23 @@ INSERT INTO enrollments (student_id, course_id, enrollment_date) VALUES
 (5,2, '2024-07-10'); -- Barney
 
 SELECT 
-    CONCAT(s.first_name, ' ', s.last_name) AS student_name
-FROM students s
-JOIN enrollments e ON s.id = e.student_id
-JOIN courses c ON e.course_id = c.id
-WHERE c.course_name = 'Hockey 2002';
+    CONCAT(students.first_name, ' ', students.last_name) AS full_name
+FROM students
+JOIN enrollments ON students.id = enrollments.student_id
+JOIN courses ON enrollments.course_id = courses.id
+WHERE courses.course_name = 'Hockey 2002';
 
 
+
+SELECT
+    courses.course_name,
+    CONCAT(professors.first_name, ' ', professors.last_name) AS professor_name
+FROM courses
+JOIN professors ON courses.professor_id = professors.id;
+
+
+SELECT 
+    DISTINCT courses.course_name
+FROM courses
+JOIN enrollments ON courses.id = enrollments.course_id;
 
