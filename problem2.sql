@@ -44,11 +44,11 @@ INSERT INTO products (product_name, price, stock_quantity) VALUES
 
 
 INSERT INTO orders (customer_id, order_date) VALUES
-(1, '2023-07-20'),
-(2, '2023-07-20'),
-(3, '2023-07-20'),
-(4, '2023-07-20'),
-(5, '2023-07-20');
+(1, '2023-07-21'),
+(2, '2023-07-23'),
+(3, '2023-07-25'),
+(4, '2023-07-22'),
+(5, '2023-07-26');
 
 
 
