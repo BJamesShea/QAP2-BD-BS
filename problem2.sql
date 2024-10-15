@@ -1,89 +1,81 @@
-CREATE TABLE students (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-     first_name VARCHAR(50) NOT NULL,
-     last_name VARCHAR(50) NOT NULL,
-     email VARCHAR(100) NOT NULL,
-     school_enrollment_date DATE
+CREATE TABLE products (
+    id SERIAL PRIMARY KEY,        -- Switching to id SERIAL as apparently PGAdmin doesn't like auto_increment
+    product_name VARCHAR(100) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    stock_quantity INT NOT NULL
+    
 );
 
-CREATE TABLE professors (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE customers (
+    id SERIAL PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
-    department VARCHAR(100)
+    email VARCHAR(100)UNIQUE NOT NULL  -- Unique so people can't sign up 100 times with their ex's account and ruin their lives
 );
 
-CREATE TABLE courses (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    course_name VARCHAR(100) NOT NULL,
-    course_description VARCHAR(300),
-    professor_id INT,
-    FOREIGN KEY (professor_id) REFERENCES professors(id)
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    customer_id INT,
+    order_date DATE,
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
 );
 
-CREATE TABLE enrollments(
-    student_id INT,
-    course_id INT,
-    enrollment_date DATE,
-    PRIMARY KEY (student_id, course_id),
-    FOREIGN KEY (student_id) REFERENCES  students(id),
-    FOREIGN KEY (course_id) REFERENCES courses(id)
+CREATE TABLE order_items (
+    order_id INT,
+    product_id INT,
+    quantity INT NOT NULL,
+    PRIMARY KEY (order_id, product_id),
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
-INSERT INTO students (first_name, last_name, email, school_enrollment_date) VALUES
-('Nell', 'Crain', 'nellcrain@thohh.com', '1999-01-02'), --Haunting of Hill House the greatest TV show ever made
-('Dani', 'Clayton', 'daniclayton@thobm.com', '1928-11-04'), --Haunting of Bly Manor the second greatest TV show ever made
-('Paul', 'Hill', 'paulhill@midnightmass.com', '1991-02-17'), --Midnight Mass the third greatest TV show ever made
-('Robert', 'Baratheon', 'robbaratheon@got.com', '1674-07-20'),
-('Barney', 'Stinson', 'barnetstinson@himym.com', '1987-10-11');
+INSERT INTO customers (first_name, last_name, email) VALUES
+('Nell', 'Crain', 'nellcrain@thohh.com'), 
+('Dani', 'Clayton', 'daniclayton@thobm.com'), 
+('Paul', 'Hill', 'paulhill@midnightmass.com'), 
+('Robert', 'Baratheon', 'robbaratheon@got.com'),
+('Barney', 'Stinson', 'barnetstinson@himym.com');
 
-INSERT INTO professors (first_name, last_name, department) VALUES
-('Barack', 'Obama', 'Presidential debate'),
-('Justin', 'Trudeau', 'Hockey'),
-('Albert', 'Einstein', 'Basic Math'),
-('John', 'Mayer', 'Advanced Music');
-
-
-INSERT INTO courses (course_name, course_description, professor_id) VALUES
-('Presidential Debate 1001', 'Learn how to be presidential', 1),
-('Hockey 2002', 'Become Wayne Gretzky', 2),
-('Basic Math 1103', 'Quick Maths', 3),
-('Advanced Music 4001', 'Advanced Music Theory aka; play Gravity 100 times in a row', 4);
+INSERT INTO products (product_name, price, stock_quantity) VALUES
+('Guitar', 499.99, 3),
+('iPhone 16 Pro Max', 1599.99, 8),
+('Monster Energy (white)', 3.99, 324),
+('Sony PS5', 599.99, 11);
 
 
-
-INSERT INTO enrollments (student_id, course_id, enrollment_date) VALUES
-(1,1, '2024-07-11'), -- Nell
-(2,2, '2024-07-10'), -- Dani
-(3,3, '2024-07-09'), -- Paul
-(4,1, '2024-07-12'), -- Robert
-(5,2, '2024-07-10'); -- Barney
-
-SELECT 
-    CONCAT(students.first_name, ' ', students.last_name) AS full_name
-FROM students
-JOIN enrollments ON students.id = enrollments.student_id
-JOIN courses ON enrollments.course_id = courses.id
-WHERE courses.course_name = 'Hockey 2002';
+INSERT INTO orders (customer_id, order_date) VALUES
+(1, '2023-07-20'),
+(2, '2023-07-20'),
+(3, '2023-07-20'),
+(4, '2023-07-20'),
+(5, '2023-07-20');
 
 
 
-SELECT
-    courses.course_name,
-    CONCAT(professors.first_name, ' ', professors.last_name) AS professor_name
-FROM courses
-JOIN professors ON courses.professor_id = professors.id;
+INSERT INTO order_items (order_id, product_id, quantity) VALUES
+(1,1,2),
+(2,4,1),
+(3,3,2),
+(4,4,10),
+(5,2,1);
 
 
 SELECT 
-    DISTINCT courses.course_name
-FROM courses
-JOIN enrollments ON courses.id = enrollments.course_id;
+    product_name, stock_quantity
+FROM products;
 
+SELECT 
+    products.product_name, order_items.quantity
+FROM order_items
+JOIN products ON order_items.product_id = products.id
+WHERE order_items.order_id = 1;
 
-UPDATE students
-SET email = 'bentnecklady@thohh.com'
+UPDATE products
+SET stock_quantity = stock_quantity - 2
+WHERE id = 5;
+
+DELETE FROM order_items
+WHERE order_id = 1;
+
+DELETE FROM orders
 WHERE id = 1;
-
-DELETE FROM enrollments
-WHERE student_id = 5 AND course_id = 2;
