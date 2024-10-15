@@ -45,7 +45,10 @@ INSERT INTO professors (first_name, last_name, department) VALUES
 
 
 INSERT INTO courses (course_name, course_description, professor_id) VALUES
-(),
+('Presidential Decate 1001', 'Learn how to be presidential', 1),
+('Hockey 2002', 'Become Wayne Gretzky', 2),
+('Basic Math 1103', 'Quick Maths', 3),
+('Advanced Music 4001', 'Advanced Music Theory aka; play Gravity 100 times in a row', 4);
 
 
 
