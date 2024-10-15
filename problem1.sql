@@ -80,3 +80,10 @@ SELECT
 FROM courses
 JOIN enrollments ON courses.id = enrollments.course_id;
 
+
+UPDATE students
+SET email = 'bentnecklady@thohh.com'
+WHERE id = 1;
+
+DELETE FROM enrollments
+WHERE student_id = 5 AND course_id = 2;
