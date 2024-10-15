@@ -59,3 +59,12 @@ INSERT INTO enrollments (student_id, course_id, enrollment_date) VALUES
 (4,1, '2024-07-12'), -- Robert
 (5,2, '2024-07-10'); -- Barney
 
+SELECT 
+    CONCAT(s.first_name, ' ', s.last_name) AS student_name
+FROM students s
+JOIN enrollments e ON s.id = e.student_id
+JOIN courses c ON e.course_id = c.id
+WHERE c.course_name = 'Hockey 2002';
+
+
+
